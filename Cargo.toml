@@ -1,0 +1,56 @@
+[package]
+name = "tweek"
+description = "GUI library with tween animation"
+version = "0.2.1-rc2"
+authors = ["Hugh Lang <hughlang@gmail.com>"]
+keywords = ["animation", "graphics", "gui"]
+license = "LGPL"
+readme = "README.md"
+repository = "https://github.com/rayet-inc/tweek"
+# exclude = ["static/*"]
+edition = "2018"
+
+[lib]
+name = "tweek"
+path = "src/lib.rs"
+crate-type = ["lib"]
+
+[[example]]
+name = "animate"
+path = "examples/quicksilver/animate.rs"
+
+[[example]]
+name = "gui"
+path = "examples/quicksilver/gui.rs"
+
+[[example]]
+name = "modals"
+path = "examples/quicksilver/modals.rs"
+
+[dependencies]
+cgmath = "0.17.0"
+log = "0.4"
+lazy_static = "1.3.0"
+unwrap_to = "0.1.0"
+image = { version = "0.22", default-features = false, features = ["png_codec", "jpeg"] }
+glyph_brush = "0.6"
+float-cmp = "0.5"
+# approx = "0.3"
+# unicode-normalization = "0.1.8"
+# euclid = "0.20"
+# fnv = "1.0"
+
+[dependencies.quicksilver]
+default-features = false
+features = ["complex_shapes"]
+# path = "../quicksilver"
+git = "https://github.com/hughlang/quicksilver"
+branch = "modular_gl"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+stdweb = "0.4"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+env_logger = "0.6"
+color-backtrace = { version = "0.1" }
+
