@@ -4,7 +4,7 @@ use super::clock::*;
 use crate::events::*;
 // use crate::gui::{gui_print_type, Stage, GUI_NAMES_MAP};
 
-use quicksilver::geom::Vector;
+use iced_core::Vector;
 
 use std::{
     any::TypeId,
@@ -40,8 +40,6 @@ pub struct AppState {
     pub(crate) node_tags: HashMap<NodeTag, NodePath>,
     /// Outbound notifications, enriched with sender/receiver data
     pub(crate) send_notifications: HashMap<String, NotificationData>,
-    /// Stores the index value of the row that was clicked on.
-    pub(crate) row_target: Option<usize>,
     /// The hierarchy of NodePaths where Stage is ignored
     pub(crate) node_tree: BTreeMap<String, NodePath>,
     /// A number that stores the next id value to assign through the new_id() function
@@ -58,12 +56,11 @@ impl AppState {
             time_scale: 1.0,
             elapsed_time: 0.0,
             total_time: 0.0,
-            offset: Vector::ZERO,
+            offset: Vector::new(0.0, 0.0),
             event_bus: EventBus::default(),
             node_tags: HashMap::new(),
             observers_map: HashMap::new(),
             send_notifications: HashMap::new(),
-            row_target: None,
             node_tree: BTreeMap::new(),
             next_id: 0,
         }
@@ -76,7 +73,7 @@ impl AppState {
         id
     }
 
-    pub(crate) fn set_next_id(&mut self, next_id: u32) {
+    pub(crate) fn _set_next_id(&mut self, next_id: u32) {
         self.next_id = next_id;
     }
 
@@ -85,12 +82,12 @@ impl AppState {
         self.node_tree.insert(node.as_string(), node);
     }
 
-    pub(crate) fn assign_tag(&mut self, tag: NodeTag, path: NodePath) {
+    pub(crate) fn _assign_tag(&mut self, tag: NodeTag, path: NodePath) {
         log::trace!("Assigning tag={:?} for path={:?}", tag, path.as_string());
         self.node_tags.insert(tag, path);
     }
 
-    pub(crate) fn register_observer(&mut self, name: String, observer: NodePath) {
+    pub(crate) fn _register_observer(&mut self, name: String, observer: NodePath) {
         log::trace!("register_observer name {:?} for {:?}", name, observer.as_string());
         self.observers_map.entry(name).or_insert(Vec::new()).push(observer);
     }
@@ -134,7 +131,7 @@ impl AppState {
 
     /// Hacky way of forcing top-level controller to zero
     pub fn zero_offset(&mut self) {
-        self.offset = Vector::ZERO;
+        self.offset = Vector::new(0.0, 0.0);
     }
 
     pub fn print_tree(&self) {

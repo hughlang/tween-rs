@@ -35,17 +35,18 @@ unwrap_to = "0.1.0"
 image = { version = "0.22", default-features = false, features = ["png_codec", "jpeg"] }
 glyph_brush = "0.6"
 float-cmp = "0.5"
+iced_core = "0.2.1"
 # approx = "0.3"
 # unicode-normalization = "0.1.8"
 # euclid = "0.20"
 # fnv = "1.0"
 
-[dependencies.quicksilver]
-default-features = false
-features = ["complex_shapes"]
-# path = "../quicksilver"
-git = "https://github.com/hughlang/quicksilver"
-branch = "modular_gl"
+# [dependencies.quicksilver]
+# default-features = false
+# features = ["complex_shapes"]
+# # path = "../quicksilver"
+# git = "https://github.com/hughlang/quicksilver"
+# branch = "modular_gl"
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 stdweb = "0.4"
